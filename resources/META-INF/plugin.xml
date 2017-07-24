@@ -1,6 +1,6 @@
 <idea-plugin>
-  <id>com.your.company.unique.plugin.id</id>
-  <name>Plugin display name here</name>
+  <id>com.intellij.plugin.CommandPromptHere</id>
+  <name>Command Prompt Here</name>
   <version>1.0</version>
   <vendor email="szymek07@gmail.com" url="http://www.yourcompany.com">YourCompany</vendor>
 
@@ -20,17 +20,19 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-
+<!--
   <depends>com.intellij.modules.lang</depends>
+-->
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
   </extensions>
 
   <actions>
-    <action class="com.intellij.plugin.cph.CommandPromptHereAction" id="com.intellij.plugin.cph.CommandPromptHereAction" text="Command Prompt Here" description="Open Command Prompt Here">
-      <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="RevealIn" />
-      <keyboard-shortcut first-keystroke="ctrl alt C" keymap="$default" />
+    <action id="com.intellij.plugin.cph.CommandPromptHereAction" class="com.intellij.plugin.cph.CommandPromptHereAction"
+            text="Command Prompt Here" description="Open Command Prompt Here">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="RevealIn" />
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt C" />
     </action>
   </actions>
 

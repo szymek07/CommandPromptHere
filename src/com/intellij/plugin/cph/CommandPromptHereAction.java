@@ -10,10 +10,12 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
+import com.intellij.openapi.diagnostic.Logger;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class CommandPromptHereAction extends AnAction {
 
@@ -30,30 +32,30 @@ public class CommandPromptHereAction extends AnAction {
 
     private void executeAction(Project project) {
         VirtualFile file = getSelectedDirectory(project);
-        openTerminalInDirectory(file.getPath());
+        if (file != null) {
+            String path = file.getPath();
+            openTerminalInDirectory(path);
+        } else {
+            Notificator.notifyError("Cannot determine selected file path!");
+        }
     }
 
     private VirtualFile getSelectedDirectory(Project project) {
         AbstractProjectViewPane projectPane = ProjectView.getInstance(project).getCurrentProjectViewPane();
         DefaultMutableTreeNode node = projectPane.getSelectedNode();
-
         Object userObject = node.getUserObject();
         Object selectedObject = null;
 
         if (userObject instanceof AbstractTreeNode) {
             selectedObject = ((AbstractTreeNode) userObject).getValue();
-        }
-
-        if (userObject instanceof NodeDescriptor) {
+        } else if (userObject instanceof NodeDescriptor) {
             selectedObject = ((NodeDescriptor) userObject).getElement();
         }
 
         VirtualFile vf = null;
         if (selectedObject != null && selectedObject instanceof PsiDirectory) {
             vf = ((PsiDirectory) selectedObject).getVirtualFile();
-        }
-
-        if (selectedObject != null && selectedObject instanceof PsiElement) {
+        } else if (selectedObject != null && selectedObject instanceof PsiElement) {
             vf = ((PsiElement) selectedObject).getContainingFile().getVirtualFile().getParent();
         }
 
@@ -65,7 +67,9 @@ public class CommandPromptHereAction extends AnAction {
         try {
             Runtime.getRuntime().exec(cmdArr, null, new File(path));
         } catch (IOException e) {
-            e.printStackTrace();
+            Notificator.notifyError("Error during executing action: " + Arrays.toString(cmdArr) +
+                    "\n" + e.getMessage());
         }
     }
+
 }
