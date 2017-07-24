@@ -26,6 +26,9 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
+      <applicationConfigurable id="com.intellij.plugin.CommandPromptHere.settings"
+                               displayName="Command Prompt Here"
+                               instance="com.intellij.plugin.cph.CommandPromptHereConfiguration" />
   </extensions>
 
   <actions>
