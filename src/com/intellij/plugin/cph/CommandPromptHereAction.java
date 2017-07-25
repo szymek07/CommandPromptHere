@@ -20,7 +20,14 @@ import java.util.Arrays;
 public class CommandPromptHereAction extends AnAction {
 
     public static final String PLUGIN_NAME = "CommandPromptHere";
-    public static final String CMD_PATH = "/usr/bin/gnome-terminal";
+
+    public static final String LINUX_DEFAULT_CMD_PATH = "/usr/bin/gnome-terminal";
+    public static final String WINDOWS_DEFUALT_CMD_PATH = "C:\\Windows\\System32\\cmd.exe";
+    public static final String MAC_DEFUALT_CMD_PATH = "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal";
+
+    public static final String LINUX_DEFAULT_CHDIR_CMD = "/k cd $PATH";
+    public static final String WINDOWS_DEFUALT_CHDIR_CMD = "/k cd $PATH";
+    public static final String MAC_DEFUALT_CHDIR_CMD = "$PATH";
 
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
@@ -63,7 +70,7 @@ public class CommandPromptHereAction extends AnAction {
     }
 
     private void openTerminalInDirectory(String path) {
-        String[] cmdArr = {CMD_PATH, "/k", "start", "cd", path};
+        String[] cmdArr = {LINUX_DEFAULT_CMD_PATH, "/k cd " + path};
         try {
             Runtime.getRuntime().exec(cmdArr, null, new File(path));
         } catch (IOException e) {
