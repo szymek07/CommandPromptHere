@@ -76,8 +76,8 @@ public class CommandPromptSettingPanel extends JPanel {
     }
 
     public boolean isModified() {
-        if (Objects.equals(settings.getTerminalPath(), (terminalPath !=null)? terminalPath.getText(): null) &&
-                Objects.equals(settings.getChangeDirectoryDirective(), (chdirDirective!=null)? chdirDirective.getText(): null)) {
+        if (Objects.equals((settings != null)? settings.getTerminalPath(): null, (terminalPath !=null)? terminalPath.getText(): null) &&
+                Objects.equals((settings != null)? settings.getChangeDirectoryDirective(): null, (chdirDirective!=null)? chdirDirective.getText(): null)) {
             return false;
         } else {
             return true;
@@ -85,13 +85,19 @@ public class CommandPromptSettingPanel extends JPanel {
     }
 
     public void reset() {
-        terminalPath.setText(settings.getTerminalPath());
-        chdirDirective.setText(settings.getChangeDirectoryDirective());
+        if (settings != null ) {
+            terminalPath.setText(settings.getTerminalPath());
+        }
+        if (settings != null) {
+            chdirDirective.setText(settings.getChangeDirectoryDirective());
+        }
     }
 
     public void apply() {
-        settings.setTerminalPath(terminalPath.getText());
-        settings.setChangeDirectoryDirective(chdirDirective.getText());
+        if (settings != null) {
+            settings.setTerminalPath(terminalPath.getText());
+            settings.setChangeDirectoryDirective(chdirDirective.getText());
+        }
     }
 
 

@@ -3,15 +3,10 @@ package com.intellij.plugin.cph;
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.util.SystemInfo;
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.util.Objects;
 
 public class CommandPromptHereConfiguration implements ApplicationComponent, Configurable {
 
